@@ -39,6 +39,6 @@ gap_data <- two_days_data$Global_active_power
 
 # plot 
 png(file="plot1.png",width=480,height=480)
-hist(gap_data,col="red",main="2-day Global Active Power",xlab="2-day Global Active Power")
+hist(gap_data,col="red",main="2-day Global Active Power",xlab="2-day Global Active Power (kilowatt)")
 dev.off()
 
