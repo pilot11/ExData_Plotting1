@@ -1,7 +1,7 @@
 # function to write data from the dates 2007-02-01 and 2007-02-02 to a separate file.
 # for not need to read the entire dataset into R.
 # read the entire dataset lines one by one,
-# get the title line and the lines contains "01/02/2007" or "02/02/2007",
+# get the title line and the lines start with "1/2/2007" or "2/2/2007",
 # replace the symbolic ";" to " " in these line string,for use read.table() function.
 # ignore missing values line,these line contains "?",
 # write these lines to a new file.
@@ -17,7 +17,7 @@ write_two_days_file <- function(){
     line=readLines(sour_con,n=1)
     while( length(line) != 0 ) {
         # find 2007-02-01 and 2007-02-02 data and writedown
-        if( length(grep("1/2/2007",line)) == 1 || length(grep("2/2/2007",line)) == 1){
+        if( length(grep("^1/2/2007",line)) == 1 || length(grep("^2/2/2007",line)) == 1){
             # ignore missing values line,these line contains "?"
             if(length(grep("\\?",line)) != 1){
                 writeLines(gsub(";"," ",line),dest_con)
@@ -25,7 +25,7 @@ write_two_days_file <- function(){
         }
         line=readLines(sour_con,n=1)
     }
-
+    
     close(sour_con)
     close(dest_con)
 }
@@ -39,6 +39,6 @@ gap_data <- two_days_data$Global_active_power
 
 # plot 
 png(file="plot1.png",width=480,height=480)
-hist(gap_data,col="red",main="2-day Global Active Power",xlab="2-day Global Active Power (kilowatt)")
+hist(gap_data,col="red",main="Global Active Power",xlab="Global Active Power (kilowatt)")
 dev.off()
 
